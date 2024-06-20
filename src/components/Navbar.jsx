@@ -1,9 +1,15 @@
-import { Box, Flex, HStack, Link, IconButton, useDisclosure, Stack } from "@chakra-ui/react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { Box, Flex, HStack, Link, IconButton, useDisclosure, Stack, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { FaBars, FaTimes, FaSearch } from "react-icons/fa";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <>
@@ -24,6 +30,10 @@ const Navbar = () => {
               <Link as={RouterLink} to="/contact" color="white">Contact Us</Link>
             </HStack>
           </HStack>
+        <InputGroup maxW="md" ml="auto">
+            <InputLeftElement pointerEvents="none" children={<FaSearch color="gray.300" />} />
+            <Input type="text" placeholder="Search products..." value={searchQuery} onChange={handleSearchChange} />
+          </InputGroup>
         </Flex>
 
         {isOpen ? (
